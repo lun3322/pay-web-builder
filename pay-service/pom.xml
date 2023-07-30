@@ -11,4 +11,11 @@
 
     <artifactId>pay-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.hong.pay</groupId>
+            <artifactId>pay-common</artifactId>
+        </dependency>
+
+    </dependencies>
 </project>
