@@ -6,6 +6,6 @@ RUN mvn -Pnative clean install \
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
-WORKDIR /root/
-COPY --from=builder /app .
-CMD ["./app"]
+WORKDIR /app
+COPY --from=builder /app/pay-web/target .
+CMD ["./pay-web"]
