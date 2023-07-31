@@ -8,4 +8,4 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /app
 COPY --from=builder /app/pay-web/target .
-CMD ["./pay-web"]
+CMD ["/app/pay-web/target/pay-web"]
