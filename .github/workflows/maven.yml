@@ -18,6 +18,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --tag pay-web:$(date +%s)
+      - uses: actions/checkout@v3
+      - name: Login to ACR
+        uses: aliyun/acr-login@v1
+        with:
+          login-server: https://registry.cn-beijing.aliyuncs.com
+          username: "${{ secrets.REGISTRY_USERNAME }}"
+          password: "${{ secrets.REGISTRY_PASSWORD }}"
+      - name: Build and push image
+        env:
+          IMAGE_TAG: ${{ github.run_id }}
+        run: |
+          docker build -t registry.cn-beijing.aliyuncs.com/lun3322/koude-job-pay-ali:$IMAGE_TAG .
+          docker push registry.cn-beijing.aliyuncs.com/lun3322/koude-job-pay-ali:$IMAGE_TAG
