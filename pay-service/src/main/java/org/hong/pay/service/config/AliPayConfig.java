@@ -5,8 +5,13 @@ import com.egzosn.pay.ali.api.AliPayService;
 import com.egzosn.pay.common.bean.CertStoreType;
 import com.egzosn.pay.common.http.HttpConfigStorage;
 import com.egzosn.pay.common.util.sign.SignUtils;
+import com.tencent.cloud.polaris.context.config.PolarisContextProperties;
+import com.tencent.polaris.configuration.api.core.ConfigFile;
+import com.tencent.polaris.configuration.api.core.ConfigFileService;
+import com.tencent.polaris.configuration.client.internal.ConfigPropertiesFile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,6 +20,10 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 public class AliPayConfig {
     private final AlipayProperties alipayProperties;
+    private final ConfigFileService configFileService;
+    private final PolarisContextProperties polarisContextProperties;
+    @Value("${spring.application.name}")
+    private String appName;
 
     @Bean
     public AliPayService aliPayService() {
@@ -27,10 +36,10 @@ public class AliPayConfig {
         //设置为证书方式
         aliPayConfigStorage.setCertSign(true);
         //设置证书存储方式，这里为路径
-        aliPayConfigStorage.setCertStoreType(CertStoreType.CLASS_PATH);
-        aliPayConfigStorage.setMerchantCert(alipayProperties.getMerchantCert());
-        aliPayConfigStorage.setAliPayRootCert(alipayProperties.getAliPayRootCert());
-        aliPayConfigStorage.setAliPayCert(alipayProperties.getAliPayCert());
+        aliPayConfigStorage.setCertStoreType(CertStoreType.STR);
+        aliPayConfigStorage.setMerchantCert(getCert(alipayProperties.getMerchantCert()));
+        aliPayConfigStorage.setAliPayRootCert(getCert(alipayProperties.getAliPayRootCert()));
+        aliPayConfigStorage.setAliPayCert(getCert(alipayProperties.getAliPayCert()));
         aliPayConfigStorage.setKeyPrivate(alipayProperties.getKeyPrivate());
 
         aliPayConfigStorage.setNotifyUrl(alipayProperties.getNotifyUrl());
@@ -49,5 +58,10 @@ public class AliPayConfig {
         httpConfigStorage.setDefaultMaxPerRoute(10);
 
         return new AliPayServiceFix(aliPayConfigStorage, httpConfigStorage);
+    }
+
+    private String getCert(String name) {
+        ConfigFile configFile = configFileService.getConfigFile(polarisContextProperties.getNamespace(), appName, name);
+        return configFile.getContent();
     }
 }

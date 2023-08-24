@@ -1,0 +1,4 @@
+version: "3"
+services:
+    caddy-ali:
+        image: registry.cn-beijing.aliyuncs.com/lun3322/koude-job-pay-ali:5721564545
