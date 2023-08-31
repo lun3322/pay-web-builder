@@ -9,6 +9,10 @@ import static com.egzosn.pay.ali.bean.AliPayConst.HTTPS_REQ_URL;
 
 public class AliPayServiceFix extends AliPayService {
 
+    public AliPayServiceFix(AliPayConfigStorage aliPayConfigStorage) {
+        super(aliPayConfigStorage);
+    }
+
     @Override
     public String getReqUrl() {
         final String https_sandbox_url = "https://openapi-sandbox.dl.alipaydev.com/gateway.do";
