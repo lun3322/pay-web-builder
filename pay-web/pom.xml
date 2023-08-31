@@ -21,14 +21,6 @@
             <groupId>org.hong.pay</groupId>
             <artifactId>pay-common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.egzosn</groupId>
-            <artifactId>pay-java-ali</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.egzosn</groupId>
-            <artifactId>pay-java-web-support</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
