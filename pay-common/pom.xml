@@ -22,6 +22,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.javen205</groupId>
+            <artifactId>ijpay-alipay-spring-boot-starters</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

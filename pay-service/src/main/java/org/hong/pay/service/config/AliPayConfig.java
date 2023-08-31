@@ -3,24 +3,21 @@ package org.hong.pay.service.config;
 import com.egzosn.pay.ali.api.AliPayConfigStorage;
 import com.egzosn.pay.ali.api.AliPayService;
 import com.egzosn.pay.common.bean.CertStoreType;
-import com.egzosn.pay.common.http.HttpConfigStorage;
 import com.egzosn.pay.common.util.sign.SignUtils;
 import com.tencent.cloud.polaris.context.config.PolarisContextProperties;
 import com.tencent.polaris.configuration.api.core.ConfigFile;
 import com.tencent.polaris.configuration.api.core.ConfigFileService;
-import com.tencent.polaris.configuration.client.internal.ConfigPropertiesFile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 @Slf4j
 public class AliPayConfig {
