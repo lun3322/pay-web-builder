@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: koude-pay-alipay
+  profiles:
+    active: dev
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: http://127.0.0.1:8888
+      label: dev

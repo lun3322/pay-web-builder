@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: ${APP_NAME:koude-pay-alipay}
-  cloud:
-    polaris:
-      address: ${POLARIS_ADDRESS}
-      namespace: ${POLARIS_NAMESPACE}
