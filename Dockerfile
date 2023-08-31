@@ -1,11 +1,4 @@
-FROM vegardit/graalvm-maven:latest-java17 as builder
+FROM ibm-semeru-runtimes:open-17-jre-focal
 WORKDIR /app
-COPY . .
-RUN mvn -Pnative clean install \
-    && mvn -Pnative native:compile -pl pay-web
-
-FROM alpine:latest
-RUN apk --no-cache add ca-certificates
-WORKDIR /app
-COPY --from=builder /app/pay-web/target .
-CMD ["/app/pay-web/target/pay-web"]
+COPY pay-web/target/pay-web-3.2.0.jar /app/app.jar
+CMD ["java", "-jar", "/app/app.jar"]
