@@ -42,4 +42,8 @@ public class AlipayProperties {
      * 异步回调地址
      */
     private String notifyUrl;
+    /**
+     * 是否沙箱
+     */
+    private Boolean isSandbox = false;
 }

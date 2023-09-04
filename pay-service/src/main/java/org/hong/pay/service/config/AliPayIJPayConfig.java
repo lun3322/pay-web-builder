@@ -5,6 +5,7 @@ import cn.hutool.http.HttpUtil;
 import com.alipay.api.AlipayApiException;
 import com.ijpay.alipay.AliPayApiConfig;
 import com.ijpay.alipay.AliPayApiConfigKit;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,14 +24,16 @@ public class AliPayIJPayConfig {
     @Value("${spring.application.name}")
     private String appName;
 
-    @Bean
-    public AliPayApiConfig aliPayApiConfig() throws AlipayApiException {
+    @PostConstruct
+    public void initConfig() throws AlipayApiException {
         log.info(configClientProperties.toString());
         AliPayApiConfig result = AliPayApiConfig.builder();
 
-        final String https_sandbox_url = "https://openapi-sandbox.dl.alipaydev.com/gateway.do";
+        final String httpsSandboxUrl = alipayProperties.getIsSandbox() ?
+                "https://openapi-sandbox.dl.alipaydev.com/gateway.do" :
+                "https://openapi.alipay.com/gateway.do";
 
-        result.setServiceUrl(https_sandbox_url);
+        result.setServiceUrl(httpsSandboxUrl);
         result.setAppId(alipayProperties.getAppId());
         result.setPrivateKey(alipayProperties.getKeyPrivate());
         result.setCharset("UTF-8");
@@ -41,7 +44,6 @@ public class AliPayIJPayConfig {
         result.buildByCertContent();
 
         AliPayApiConfigKit.putApiConfig(result);
-        return result;
     }
 
     private String getCert(String name) {
